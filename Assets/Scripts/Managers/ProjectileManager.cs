@@ -15,32 +15,39 @@ namespace Managers
 
         public DistanceLimitedBullet GetDistanceLimitedBullet(Vector2 from, Vector2 to, float speed, int damage)
         {
-            var bullet = _distanceLimitedBulletsPool.Get();
-            bullet.transform.position = from;
-            bullet.gameObject.SetActive(true);
-            bullet.Initialize(from, to, speed, damage);
-            return bullet;
-        }
-
-        public void Release(DistanceLimitedBullet bullet)
-        {
-            bullet.gameObject.SetActive(false);
-            _distanceLimitedBulletsPool.Release(bullet);
+            return InternalGet(_distanceLimitedBulletsPool, from, to, speed, damage);
         }
         
         public Bullet GetBullet(Vector2 from, Vector2 to, float speed, int damage)
         {
-            var bullet = _bulletsPool.Get();
-            bullet.transform.position = from;
-            bullet.gameObject.SetActive(true);
-            bullet.Initialize(from, to, speed, damage);
-            return bullet;
+            return InternalGet(_bulletsPool, from, to, speed, damage);
         }
 
-        public void Release(Bullet bullet)
+        public void Release<T>(T projectile) where T : BaseProjectile
         {
-            bullet.gameObject.SetActive(false);
-            _bulletsPool.Release(bullet);
+            if (projectile is Bullet bullet)
+            {
+                InternalRelease(_bulletsPool, bullet);
+            }
+            else if (projectile is DistanceLimitedBullet dlBullet)
+            {
+                InternalRelease(_distanceLimitedBulletsPool, dlBullet);
+            }
+        }
+
+        private static void InternalRelease<T>(IObjectPool<T> pool, T projectile) where T : BaseProjectile
+        {
+            projectile.gameObject.SetActive(false);
+            pool.Release(projectile);
+        }
+
+        private static T InternalGet<T>(IObjectPool<T> pool, Vector2 from, Vector2 to, float speed, int damage) where T : BaseProjectile
+        {
+            var projectile = pool.Get();
+            projectile.transform.position = from;
+            projectile.gameObject.SetActive(true);
+            projectile.Initialize(from, to, speed, damage);
+            return projectile;
         }
 
         private void Start()
