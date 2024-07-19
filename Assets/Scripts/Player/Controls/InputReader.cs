@@ -8,9 +8,10 @@ namespace Player.Controls
     public class InputReader : ScriptableObject, GameControls.IGameplayActions
     {
         private GameControls _gameControls;
+        private Camera _camera;
         
         public event Action<Vector2> MoveEvent;
-        public event Action AttackPerfomedEvent;
+        public event Action<Vector2> AttackPerfomedEvent;
         public event Action AttackCancelledEvent;
 
         public void Disable()
@@ -31,21 +32,31 @@ namespace Player.Controls
         public void OnAttack(InputAction.CallbackContext context)
         {
             if (context.phase == InputActionPhase.Performed)
-                AttackPerfomedEvent?.Invoke();
+                AttackPerfomedEvent?.Invoke(GetWorldMousePosition(_gameControls.Gameplay.MousePosition));
 
             else if (context.phase == InputActionPhase.Canceled)
                 AttackCancelledEvent?.Invoke();
         }
 
+        public void OnMousePosition(InputAction.CallbackContext context)
+        {
+        }
+
         private void OnEnable()
         {
-            if (_gameControls != null)
+            if (_gameControls != null && _camera != null)
                 return;
 
+            _camera = Camera.main;
             _gameControls = new GameControls();
             _gameControls.Gameplay.SetCallbacks(this);
             
             SetGameplay();
+        }
+        
+        private Vector3 GetWorldMousePosition(InputAction context)
+        {
+            return _camera.ScreenToWorldPoint(context.ReadValue<Vector2>());
         }
     }
 }
