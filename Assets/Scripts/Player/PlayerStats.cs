@@ -3,10 +3,12 @@ using UnityEngine;
 
 namespace Player
 {
-    public class PlayerStats : MonoBehaviour, IDamageable
+    public class PlayerStats : MonoBehaviour, IEntityStats
     {
         [SerializeField] private int _maxHealth;
 
+        public float SpeedModifier { get; private set; } = 1;
+        
         private int _currentHealth;
         
         public bool TryApplyDamage(int amount)
@@ -14,20 +16,24 @@ namespace Player
             _currentHealth -= amount;
             
             if (_currentHealth <= 0)
-                TryKill();
+                Kill();
 
             return true;
         }
 
-        public bool TryKill()
+        public void Kill()
         {
             Destroy(gameObject);
-            return true;
         }
 
         private void Start()
         {
             _currentHealth = _maxHealth;
+        }
+        
+        public void SetSpeedModifier(float value)
+        {
+            SpeedModifier = value;
         }
     }
 }

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a2daddfc5fc4840af8081b204022901, type: 3}
+  m_Name: Danger Zones Config
+  m_EditorClassIdentifier: 
+  _dangerZoneData:
+  - _count: 3
+    _zoneConfig: {fileID: 11400000, guid: 5aab9f72843bc4e4eac0cc29f0476b44, type: 2}
+  - _count: 2
+    _zoneConfig: {fileID: 11400000, guid: 4fcb40595c253884580b55ef071f454d, type: 2}

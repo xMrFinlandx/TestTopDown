@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Entities
 {
@@ -21,15 +20,14 @@ namespace Entities
             print($"{gameObject.name} take {amount} damage");
 
             if (_currentHealth <= 0)
-                TryKill();
+                Kill();
 
             return true;
         }
 
-        public bool TryKill()
+        public void Kill()
         {
             Destroy(gameObject);
-            return true;
         }
     }
 }

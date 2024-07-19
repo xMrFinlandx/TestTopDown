@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7584c3aab9d94a89b26e617c13a32aec, type: 3}
   m_Name: Grenade Launcher Data
   m_EditorClassIdentifier: 
-  _description: 
-  _name: 
+  _name: "\u0413\u0440\u0430\u043D\u0430\u0442\u043E\u043C\u0435\u0442"
+  _description: "\u0423\u0440\u043E\u043D 10, \u0421\u043A\u043E\u0440\u043E\u0441\u0442\u044C
+    \u0441\u0442\u0440\u0435\u043B\u044C\u0431\u044B 0.66"
   _damage: 10
   _attackSpeed: 0.66
   _projectileSpeed: 20

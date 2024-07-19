@@ -23,7 +23,7 @@ namespace Gameplay.Projectiles
         protected override void ReleaseProjectile()
         {
             OnRelease();
-            ProjectileManager.Instance.Release(this);
+            ProjectilePoolManager.Instance.Release(this);
         }
 
         private void FixedUpdate()

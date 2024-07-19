@@ -4,6 +4,6 @@
     {
         public bool TryApplyDamage(int amount);
 
-        public bool TryKill();
+        public void Kill();
     }
 }

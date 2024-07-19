@@ -18,5 +18,28 @@ namespace Utilities
 
             return results;
         }
+
+        public static Vector2 GetRandomPosition(Vector2 minBounds, Vector2 maxBounds, float range, LayerMask layerMask, int attempts = 50)
+        {
+            var position = Vector2.zero;
+            
+            for (int i = 0; i < attempts; i++)
+            {
+                position.x = Random.Range(minBounds.x + range, maxBounds.x - range);
+                position.y = Random.Range(minBounds.y + range, maxBounds.y - range);
+
+                if (!IsAreaContainsCollision(position, range, layerMask))
+                {
+                    return position;
+                }
+            }
+            
+            return Vector2.zero;
+        }
+
+        public static bool IsAreaContainsCollision(Vector2 center, float range, LayerMask layerMask)
+        {
+            return Physics2D.OverlapCircle(center, range, layerMask);
+        }
     }
 }

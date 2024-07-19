@@ -29,6 +29,9 @@ namespace Player
         
         private void LateUpdate()
         {
+            if (_target == null)
+                return;
+            
             var targetPosition = _target.position;
 
             targetPosition.x = Mathf.Clamp(targetPosition.x, _minBounds.x + _cameraHalfWidth, _maxBounds.x - _cameraHalfWidth);

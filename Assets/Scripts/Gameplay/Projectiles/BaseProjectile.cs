@@ -64,9 +64,10 @@ namespace Gameplay.Projectiles
                 return;
 
             if (other.TryGetComponent<IDamageable>(out var damageable))
+            {
+                ReleaseProjectile();
                 damageable.TryApplyDamage(Damage);
-            
-            ReleaseProjectile();
+            }
         }
     }
 }

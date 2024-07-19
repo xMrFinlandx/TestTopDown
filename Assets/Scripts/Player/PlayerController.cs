@@ -1,4 +1,5 @@
-﻿using Player.Controls;
+﻿using Entities;
+using Player.Controls;
 using UnityEngine;
 
 namespace Player
@@ -8,14 +9,18 @@ namespace Player
     {
         [SerializeField] private InputReader _inputReader;
         [SerializeField] private float _maxSpeed = 4;
-
+        [Space]
         [SerializeField] private Rigidbody2D _rigidbody;
-
+        [SerializeField] private PlayerStats _playerStats;
+        
         private Vector2 _moveDirection;
 
+        private float _totalSpeed => _maxSpeed * _playerStats.SpeedModifier;
+        
         private void OnValidate()
         {
             _rigidbody = GetComponent<Rigidbody2D>();
+            _playerStats = GetComponent<PlayerStats>();
         }
 
         private void Start()
@@ -25,11 +30,11 @@ namespace Player
 
         private void FixedUpdate()
         {
-            var targetVelocity = _moveDirection * _maxSpeed;
+            var targetVelocity = _moveDirection * _totalSpeed;
             
             if (_moveDirection != Vector2.zero)
             {
-                _rigidbody.velocity = Vector2.MoveTowards(_rigidbody.velocity, targetVelocity, _maxSpeed);
+                _rigidbody.velocity = Vector2.MoveTowards(_rigidbody.velocity, targetVelocity, _totalSpeed);
             }
             else
             {

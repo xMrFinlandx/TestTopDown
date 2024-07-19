@@ -4,8 +4,9 @@ namespace Gameplay.Weapons
 {
     public abstract class WeaponConfig : ScriptableObject
     {
-        [SerializeField] private string _description;
         [SerializeField] private string _name;
+        [SerializeField, TextArea] private string _description;
+        [Space]
         [SerializeField] private int _damage;
         [SerializeField] private float _attackSpeed;
         [SerializeField] private float _projectileSpeed;

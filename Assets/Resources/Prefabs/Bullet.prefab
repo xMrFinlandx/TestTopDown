@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1017012172308189643}
   - component: {fileID: 8212610287126883565}
   - component: {fileID: 8728799746098847030}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -166,6 +166,7 @@ MonoBehaviour:
   _collider: {fileID: 494052457930921790}
   _rigidbody: {fileID: 1017012172308189643}
   _trailRenderer: {fileID: 8728799746098847030}
+  Direction: {x: 0, y: 0}
 --- !u!96 &8728799746098847030
 TrailRenderer:
   serializedVersion: 3

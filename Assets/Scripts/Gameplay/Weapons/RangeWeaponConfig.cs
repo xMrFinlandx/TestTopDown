@@ -8,7 +8,7 @@ namespace Gameplay.Weapons
     {
         public override void Attack(Vector2 from, Vector2 to)
         {
-            ProjectileManager.Instance.GetBullet(from, to, ProjectileSpeed, Damage);
+            ProjectilePoolManager.Instance.GetBullet(from, to, ProjectileSpeed, Damage);
         }
     }
 }

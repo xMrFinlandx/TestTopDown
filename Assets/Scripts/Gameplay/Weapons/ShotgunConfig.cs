@@ -7,6 +7,7 @@ namespace Gameplay.Weapons
     [CreateAssetMenu(fileName = "New Shotgun Data", menuName = "Weapons/Shotgun Data", order = 0)]
     public class ShotgunConfig : WeaponConfig
     {
+        [Space]
         [SerializeField] private int _projectileCount = 5; 
         [SerializeField] private float _spreadAngle = 10f;
         [SerializeField] private float _maxDistance = 7f; 
@@ -15,7 +16,7 @@ namespace Gameplay.Weapons
         {
             for (int i = 0; i < _projectileCount; i++)
             {
-                ProjectileManager.Instance.GetDistanceLimitedBullet(from, to, ProjectileSpeed, Damage).AddSpread(_spreadAngle).SetMaxDistance(_maxDistance);
+                ProjectilePoolManager.Instance.GetDistanceLimitedBullet(from, to, ProjectileSpeed, Damage).AddSpread(_spreadAngle).SetMaxDistance(_maxDistance);
             }
         }
     }

@@ -5,7 +5,7 @@ using Utilities;
 
 namespace Managers
 {
-    public class ProjectileManager : Singleton<ProjectileManager>
+    public class ProjectilePoolManager : Singleton<ProjectilePoolManager>
     {
         [SerializeField] private Bullet _bullet;
         [SerializeField] private DistanceLimitedBullet _distanceLimitedBullet;
@@ -56,14 +56,8 @@ namespace Managers
             _distanceLimitedBulletsPool = new ObjectPool<DistanceLimitedBullet>(CreateDistanceLimitedBullet);
         }
 
-        private DistanceLimitedBullet CreateDistanceLimitedBullet()
-        {
-            return Instantiate(_distanceLimitedBullet, transform);
-        }
+        private DistanceLimitedBullet CreateDistanceLimitedBullet() => Instantiate(_distanceLimitedBullet, transform);
 
-        private Bullet CreateBullet()
-        {
-            return Instantiate(_bullet, transform);
-        }
+        private Bullet CreateBullet() => Instantiate(_bullet, transform);
     }
 }

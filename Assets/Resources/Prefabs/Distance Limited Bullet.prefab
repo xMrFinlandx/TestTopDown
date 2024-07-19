@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5189999506054691622}
   - component: {fileID: 2594732488431526748}
   - component: {fileID: 7463006204056907348}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Distance Limited Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -166,7 +166,7 @@ MonoBehaviour:
   _collider: {fileID: 8190757502429801069}
   _rigidbody: {fileID: 5189999506054691622}
   _trailRenderer: {fileID: 7463006204056907348}
-  MaxDistance: 0
+  Direction: {x: 0, y: 0}
 --- !u!96 &7463006204056907348
 TrailRenderer:
   serializedVersion: 3

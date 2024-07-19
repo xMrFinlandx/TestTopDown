@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 636255d94cf542768b3eaeeca99cb404, type: 3}
   m_Name: Rifle
   m_EditorClassIdentifier: 
-  _description: 
-  _name: 
+  _name: "\u0410\u0432\u0442\u043E\u043C\u0430\u0442"
+  _description: "\u0423\u0440\u043E\u043D 1, \u0421\u043A\u043E\u0440\u043E\u0441\u0442\u044C
+    \u0441\u0442\u0440\u0435\u043B\u044C\u0431\u044B 10"
   _damage: 1
   _attackSpeed: 10
   _projectileSpeed: 20
