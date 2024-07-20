@@ -1,16 +1,21 @@
 ﻿using Entities;
+using Scriptables.Entities;
 using UnityEngine;
+using Utilities.Enums;
 
 namespace Player
 {
     public class PlayerStats : MonoBehaviour, IEntityStats
     {
-        [SerializeField] private int _maxHealth;
-
-        public float SpeedModifier { get; private set; } = 1;
+        [SerializeField] private PlayerStatsConfig _playerStatsConfig;
         
         private int _currentHealth;
         
+        public float SpeedModifier { get; private set; }
+        public float Speed => _playerStatsConfig.Speed * SpeedModifier;
+        
+        public EntityType EntityType => EntityType.Player;
+
         public bool TryApplyDamage(int amount)
         {
             _currentHealth -= amount;
@@ -28,7 +33,8 @@ namespace Player
 
         private void Start()
         {
-            _currentHealth = _maxHealth;
+            _currentHealth = _playerStatsConfig.MaxHealth;
+            SetSpeedModifier(1);
         }
         
         public void SetSpeedModifier(float value)

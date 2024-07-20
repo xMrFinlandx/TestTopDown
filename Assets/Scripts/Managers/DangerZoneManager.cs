@@ -1,4 +1,5 @@
 ﻿using Gameplay.Zones;
+using Scriptables.Zones;
 using UnityEngine;
 using Utilities;
 
@@ -10,6 +11,7 @@ namespace Managers
         [SerializeField] private LayerMask _obstacleLayerMask;
         [SerializeField] private DangerZonesConfig _dangerZonesConfig;
         [SerializeField] private BoxCollider2D _bounds;
+        [SerializeField] private float _minNeighbourDistance = 3;
         
         private Vector2 _minBounds;
         private Vector2 _maxBounds;
@@ -32,7 +34,11 @@ namespace Managers
                 
                 for (int j = 0; j < zoneData.Count; j++)
                 {
-                    var position = OverlapHelper.GetRandomPosition(_minBounds, _maxBounds, zoneData.ZoneConfig.Radius, _obstacleLayerMask);
+                    if (!OverlapHelper.TryGetRandomPosition(out var position, _minBounds, _maxBounds,
+                            zoneData.ZoneConfig.Radius,
+                            _minNeighbourDistance, _obstacleLayerMask))
+                        continue;
+                    
                     var dangerZone = Instantiate(_prefab, position, Quaternion.identity, transform);
                     dangerZone.Init(zoneData.ZoneConfig);
                 }

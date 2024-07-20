@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
+using Utilities.Enums;
 
-namespace Gameplay.Weapons
+namespace Scriptables.Weapons
 {
     public abstract class WeaponConfig : ScriptableObject
     {
         [SerializeField] private string _name;
         [SerializeField, TextArea] private string _description;
-        [Space]
+        [Space] 
+        [SerializeField] private EntityType _owner;
         [SerializeField] private int _damage;
         [SerializeField] private float _attackSpeed;
         [SerializeField] private float _projectileSpeed;
@@ -14,6 +16,7 @@ namespace Gameplay.Weapons
         public int Damage => _damage;
         public float AttackDelay => 1 / _attackSpeed;
         public float ProjectileSpeed => _projectileSpeed;
+        public EntityType Owner => _owner;
 
         public abstract void Attack(Vector2 from, Vector2 to);
     }

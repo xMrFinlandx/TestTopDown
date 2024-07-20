@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: Slow Speed Zone
   m_EditorClassIdentifier: 
   _radius: 3
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 128
+  _targets: 1
   _areaColor: {r: 0, g: 0.61128855, b: 1, a: 0.29803923}
   _speedModifier: 0.6

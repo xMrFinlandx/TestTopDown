@@ -1,4 +1,5 @@
 ﻿using Entities;
+using Scriptables.Zones;
 using UnityEngine;
 
 namespace Gameplay.Zones
@@ -22,6 +23,8 @@ namespace Gameplay.Zones
 
         private void OnTriggerEnter2D(Collider2D other)
         {
+            print(other.name);
+            
             if (other.TryGetComponent<IEntityStats>(out var entityStats))
                 _dangerZoneConfig.OnEnter(entityStats);
         }

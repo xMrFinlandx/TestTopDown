@@ -1,9 +1,12 @@
-﻿namespace Entities
+﻿using Utilities.Enums;
+
+namespace Entities
 {
     public interface IDamageable
     {
-        public bool TryApplyDamage(int amount);
+        public EntityType EntityType { get; }
 
+        public bool TryApplyDamage(int amount);
         public void Kill();
     }
 }

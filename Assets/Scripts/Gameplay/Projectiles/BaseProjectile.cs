@@ -1,6 +1,7 @@
 ﻿using System;
 using Entities;
 using UnityEngine;
+using Utilities.Enums;
 
 namespace Gameplay.Projectiles
 {
@@ -14,7 +15,8 @@ namespace Gameplay.Projectiles
         public Vector2 Direction;
         
         private bool _canIgnoreCollisions = false;
-        private Action<Vector2> _onDestroyAction;
+        private bool _isReleased;
+        private Action<Vector2> _destroyAction;
         
         public int Damage { get; protected set; }
         public float Speed { get; protected set; }
@@ -22,10 +24,18 @@ namespace Gameplay.Projectiles
         protected CircleCollider2D Collider => _collider;
         protected Rigidbody2D Rigidbody => _rigidbody;
         protected TrailRenderer TrailRenderer => _trailRenderer;
-        
+
+        public EntityType Owner { get; private set; } = EntityType.Everything;
+
+        public BaseProjectile SetOwner(EntityType entityType)
+        {
+            Owner = entityType;
+            return this;
+        }
+
         public BaseProjectile SetOnDestroyAction(Action<Vector2> action)
         {
-            _onDestroyAction = action;
+            _destroyAction = action;
             return this;
         }
 
@@ -38,7 +48,8 @@ namespace Gameplay.Projectiles
         public virtual void Initialize(Vector2 from, Vector2 to, float speed, int damage)
         {
             _trailRenderer.Clear();
-            
+
+            _isReleased = false;
             Direction = (to - from).normalized;
             Speed = speed;
             Damage = damage;
@@ -51,8 +62,9 @@ namespace Gameplay.Projectiles
 
         protected void OnRelease()
         {
-            _onDestroyAction?.Invoke(transform.position);
-            _onDestroyAction = null;
+            _isReleased = true;
+            _destroyAction?.Invoke(transform.position);
+            _destroyAction = null;
             _canIgnoreCollisions = false;
         }
 
@@ -63,10 +75,12 @@ namespace Gameplay.Projectiles
             if (_canIgnoreCollisions)
                 return;
 
-            if (other.TryGetComponent<IDamageable>(out var damageable))
+            if (other.TryGetComponent<IDamageable>(out var damageable) && damageable.EntityType != Owner)
             {
-                ReleaseProjectile();
                 damageable.TryApplyDamage(Damage);
+
+                if (!_isReleased)
+                    ReleaseProjectile();
             }
         }
     }

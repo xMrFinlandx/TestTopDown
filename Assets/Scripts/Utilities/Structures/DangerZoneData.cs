@@ -1,5 +1,5 @@
 ﻿using System;
-using Gameplay.Zones;
+using Scriptables.Zones;
 using UnityEngine;
 
 namespace Utilities.Structures

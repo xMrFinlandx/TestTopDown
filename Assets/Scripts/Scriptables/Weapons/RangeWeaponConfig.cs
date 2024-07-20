@@ -1,7 +1,7 @@
 ﻿using Managers;
 using UnityEngine;
 
-namespace Gameplay.Weapons
+namespace Scriptables.Weapons
 {
     [CreateAssetMenu(fileName = "New Range Weapon Data", menuName = "Weapons/Range Weapon Data", order = 0)]
     public class RangeWeaponConfig : WeaponConfig

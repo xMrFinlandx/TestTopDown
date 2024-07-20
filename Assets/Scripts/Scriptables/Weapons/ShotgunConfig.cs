@@ -2,7 +2,7 @@
 using UnityEngine;
 using Utilities;
 
-namespace Gameplay.Weapons
+namespace Scriptables.Weapons
 {
     [CreateAssetMenu(fileName = "New Shotgun Data", menuName = "Weapons/Shotgun Data", order = 0)]
     public class ShotgunConfig : WeaponConfig

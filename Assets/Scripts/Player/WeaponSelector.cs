@@ -1,5 +1,5 @@
-﻿using Gameplay.Weapons;
-using Player.Controls;
+﻿using Player.Controls;
+using Scriptables.Weapons;
 using UnityEngine;
 
 namespace Player

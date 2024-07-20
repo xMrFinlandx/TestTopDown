@@ -1,19 +1,19 @@
 ﻿using Entities;
 using UnityEngine;
 
-namespace Gameplay.Zones
+namespace Scriptables.Zones
 {
     [CreateAssetMenu(fileName = "New Speed Zone", menuName = "Zones/Speed Zone", order = 0)]
     public class SpeedZoneConfig : DangerZoneConfig
     {
         [SerializeField] private float _speedModifier = .6f;
         
-        public override void OnEnter(IEntityStats target)
+        protected override void Enter(IEntityStats target)
         {
             target.SetSpeedModifier(_speedModifier);
         }
 
-        public override void OnExit(IEntityStats target)
+        protected override void Exit(IEntityStats target)
         {
             target.SetSpeedModifier(1);
         }

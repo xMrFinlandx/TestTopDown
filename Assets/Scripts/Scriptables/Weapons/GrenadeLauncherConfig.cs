@@ -3,7 +3,7 @@ using Managers;
 using UnityEngine;
 using Utilities;
 
-namespace Gameplay.Weapons
+namespace Scriptables.Weapons
 {
     [CreateAssetMenu(fileName = "New Grenade Launcher Data", menuName = "Weapons/Grenade Launcher Data", order = 0)]
     public class GrenadeLauncherConfig : WeaponConfig

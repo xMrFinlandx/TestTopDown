@@ -19,22 +19,22 @@ namespace Utilities
             return results;
         }
 
-        public static Vector2 GetRandomPosition(Vector2 minBounds, Vector2 maxBounds, float range, LayerMask layerMask, int attempts = 50)
+        public static bool TryGetRandomPosition(out Vector2 result, Vector2 minBounds, Vector2 maxBounds, float range, float minNeighbourDistance, LayerMask layerMask, int attempts = 50)
         {
-            var position = Vector2.zero;
+            result = Vector2.zero;
             
             for (int i = 0; i < attempts; i++)
             {
-                position.x = Random.Range(minBounds.x + range, maxBounds.x - range);
-                position.y = Random.Range(minBounds.y + range, maxBounds.y - range);
+                result.x = Random.Range(minBounds.x + range + minNeighbourDistance, maxBounds.x - range - minNeighbourDistance);
+                result.y = Random.Range(minBounds.y + range + minNeighbourDistance, maxBounds.y - range - minNeighbourDistance);
 
-                if (!IsAreaContainsCollision(position, range, layerMask))
+                if (!IsAreaContainsCollision(result, range + minNeighbourDistance, layerMask))
                 {
-                    return position;
+                    return true;
                 }
             }
             
-            return Vector2.zero;
+            return false;
         }
 
         public static bool IsAreaContainsCollision(Vector2 center, float range, LayerMask layerMask)
