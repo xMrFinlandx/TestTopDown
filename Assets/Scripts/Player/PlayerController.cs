@@ -13,25 +13,23 @@ namespace Player
         
         private Vector2 _moveDirection;
         
-        public bool RotateTowards(Vector2 targetPosition)
+        public bool RotateTowards(Vector2 targetPosition, float deltaTime)
         {
-            Vector2 direction = (targetPosition - (Vector2)transform.position).normalized;
-            float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            float currentAngle = _rigidbody.rotation;
-            float angleDifference = Mathf.DeltaAngle(currentAngle, targetAngle);
-            float maxRotationStep = 180f * Time.fixedDeltaTime;
+            var direction = (targetPosition - (Vector2) transform.position).normalized;
+            var targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            var currentAngle = _rigidbody.rotation;
+            var angleDifference = Mathf.DeltaAngle(currentAngle, targetAngle);
+            var maxRotationStep = _playerStats.RotationSpeed * deltaTime;
 
             if (Mathf.Abs(angleDifference) <= maxRotationStep)
             {
                 _rigidbody.rotation = targetAngle;
                 return true;
             }
-            else
-            {
-                float rotationStep = Mathf.Sign(angleDifference) * maxRotationStep;
-                _rigidbody.rotation = currentAngle + rotationStep;
-                return false;
-            }
+
+            var rotationStep = Mathf.Sign(angleDifference) * maxRotationStep;
+            _rigidbody.rotation = currentAngle + rotationStep;
+            return false;
         }
         
         private void OnValidate()

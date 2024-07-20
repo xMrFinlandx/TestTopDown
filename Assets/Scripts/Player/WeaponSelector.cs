@@ -27,7 +27,7 @@ namespace Player
         {
             _weaponHolder.Update(Time.deltaTime);
 
-            if (_isAttackPressed && _weaponHolder.CanAttack && _playerController.RotateTowards(_inputReader.MousePosition))
+            if (_isAttackPressed && _weaponHolder.CanAttack && _playerController.RotateTowards(_inputReader.MousePosition, Time.deltaTime))
             {
                 _weaponHolder.Attack(_firePoint.position, _inputReader.MousePosition);
             }

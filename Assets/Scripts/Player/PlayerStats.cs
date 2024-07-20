@@ -16,8 +16,10 @@ namespace Player
         
         public float SpeedModifier { get; private set; }
         public float Speed => _playerStatsConfig.Speed * SpeedModifier;
+        public float RotationSpeed => _playerStatsConfig.RotationSpeed;
         
         public EntityType EntityType => EntityType.Player;
+
 
         public bool TryApplyDamage(int amount)
         {
