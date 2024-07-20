@@ -9,9 +9,11 @@ namespace Player.Controls
     {
         private GameControls _gameControls;
         private Camera _camera;
+
+        public Vector2 MousePosition => GetWorldMousePosition(_gameControls.Gameplay.MousePosition);
         
         public event Action<Vector2> MoveEvent;
-        public event Action<Vector2> AttackPerfomedEvent;
+        public event Action AttackPerfomedEvent;
         public event Action AttackCancelledEvent;
 
         public void Disable()
@@ -32,7 +34,7 @@ namespace Player.Controls
         public void OnAttack(InputAction.CallbackContext context)
         {
             if (context.phase == InputActionPhase.Performed)
-                AttackPerfomedEvent?.Invoke(GetWorldMousePosition(_gameControls.Gameplay.MousePosition));
+                AttackPerfomedEvent?.Invoke();
 
             else if (context.phase == InputActionPhase.Canceled)
                 AttackCancelledEvent?.Invoke();

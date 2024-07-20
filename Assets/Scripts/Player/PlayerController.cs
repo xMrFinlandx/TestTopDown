@@ -13,6 +13,27 @@ namespace Player
         
         private Vector2 _moveDirection;
         
+        public bool RotateTowards(Vector2 targetPosition)
+        {
+            Vector2 direction = (targetPosition - (Vector2)transform.position).normalized;
+            float targetAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            float currentAngle = _rigidbody.rotation;
+            float angleDifference = Mathf.DeltaAngle(currentAngle, targetAngle);
+            float maxRotationStep = 180f * Time.fixedDeltaTime;
+
+            if (Mathf.Abs(angleDifference) <= maxRotationStep)
+            {
+                _rigidbody.rotation = targetAngle;
+                return true;
+            }
+            else
+            {
+                float rotationStep = Mathf.Sign(angleDifference) * maxRotationStep;
+                _rigidbody.rotation = currentAngle + rotationStep;
+                return false;
+            }
+        }
+        
         private void OnValidate()
         {
             _rigidbody = GetComponent<Rigidbody2D>();

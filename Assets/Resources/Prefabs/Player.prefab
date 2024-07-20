@@ -181,7 +181,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputReader: {fileID: 11400000, guid: f622052fc01e37a4ab522c4cf562ce8b, type: 2}
-  _weaponConfig: {fileID: 11400000, guid: d9b38122dc5695c4aa78e8e8561ee9d5, type: 2}
+  _weaponConfig: {fileID: 11400000, guid: 8a354312283f1ba4cae51326faacde3a, type: 2}
+  _playerController: {fileID: 6572287700066533374}
+  _firePoint: {fileID: 7011089740312437535}
 --- !u!114 &3297266331492051339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,13 +222,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3031332969518657490}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.6, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0.7, y: 0, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 253319216392309950}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!212 &5922096526466518658
 SpriteRenderer:
   m_ObjectHideFlags: 0
