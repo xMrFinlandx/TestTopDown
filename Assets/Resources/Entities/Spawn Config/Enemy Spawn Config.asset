@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0fe38aa491748e08e7956359680e5da, type: 3}
+  m_Name: Enemy Spawn Config
+  m_EditorClassIdentifier: 
+  _enemies:
+    WeightedList:
+    - Item: {fileID: 11400000, guid: 4ffdf2a450d28384280178093cbc3e65, type: 2}
+      Weight: 60
+    - Item: {fileID: 11400000, guid: 30c14f6a9bb72e54e9df5bfb5feb5d2e, type: 2}
+      Weight: 30
+    - Item: {fileID: 11400000, guid: 6fc3cbf61f9a9d64e8ea5165c25f2105, type: 2}
+      Weight: 10

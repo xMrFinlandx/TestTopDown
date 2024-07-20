@@ -1,4 +1,5 @@
-﻿using Entities;
+﻿using System;
+using Entities;
 using Scriptables.Entities;
 using UnityEngine;
 using Utilities.Enums;
@@ -10,6 +11,8 @@ namespace Player
         [SerializeField] private PlayerStatsConfig _playerStatsConfig;
         
         private int _currentHealth;
+        
+        public static event Action PlayerDiedAction;
         
         public float SpeedModifier { get; private set; }
         public float Speed => _playerStatsConfig.Speed * SpeedModifier;
@@ -28,18 +31,25 @@ namespace Player
 
         public void Kill()
         {
+            PlayerDiedAction?.Invoke();
             Destroy(gameObject);
         }
 
+        public void SetSpeedModifier(float value)
+        {
+            SpeedModifier = value;
+        }
+        
         private void Start()
         {
             _currentHealth = _playerStatsConfig.MaxHealth;
             SetSpeedModifier(1);
         }
-        
-        public void SetSpeedModifier(float value)
+
+        private void OnCollisionEnter2D(Collision2D other)
         {
-            SpeedModifier = value;
+            if (other.collider.TryGetComponent<IDamageable>(out var damageable) && damageable.EntityType == EntityType.Enemy)
+                TryApplyDamage(_currentHealth);
         }
     }
 }

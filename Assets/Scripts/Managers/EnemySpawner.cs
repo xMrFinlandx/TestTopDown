@@ -1,12 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Entities;
-using Scriptables.Entities;
+using Player;
+using Scriptables.Spawn;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Managers
 {
-    public class EnemySpawnerManager : MonoBehaviour
+    public class EnemySpawner : MonoBehaviour
     {
         [SerializeField] private EnemyStats _prefab;
         [Header("Spawn Settings")]
@@ -16,7 +18,7 @@ namespace Managers
         [SerializeField] private float _spawnIntervalDecrease = 0.1f; 
         [SerializeField] private float _minSpawnInterval = 0.5f;
         [Header("Enemy stats")]
-        [SerializeField] private EnemyStatsConfig _enemyStatsConfig;
+        [SerializeField] private EnemySpawnConfig _spawnConfig;
 
         private float _currentSpawnInterval;
         private Camera _camera;
@@ -25,11 +27,24 @@ namespace Managers
         {
             _camera = Camera.main;
             _currentSpawnInterval = _initialSpawnInterval;
+
+            PlayerStats.PlayerDiedAction += OnPlayerDied;
             
             StartCoroutine(SpawnEnemies());
             StartCoroutine(DecreaseSpawnInterval());
         }
-        
+
+        private void OnPlayerDied()
+        {
+            StopAllCoroutines();
+            _currentSpawnInterval = _initialSpawnInterval;
+        }
+
+        private void OnDisable()
+        {
+            PlayerStats.PlayerDiedAction -= OnPlayerDied;
+        }
+
         private IEnumerator SpawnEnemies()
         {
             while (true)
@@ -52,7 +67,7 @@ namespace Managers
         {
             var spawnPosition = GetRandomSpawnPosition();
             var enemyStats = Instantiate(_prefab, spawnPosition, Quaternion.identity);
-            enemyStats.Init(_enemyStatsConfig);
+            enemyStats.Init(_spawnConfig.Get(), PlayerSpawner.PlayerTransform);
         }
         
         private Vector2 GetRandomSpawnPosition()

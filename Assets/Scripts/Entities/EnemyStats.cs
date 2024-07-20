@@ -7,9 +7,12 @@ namespace Entities
 {
     public class EnemyStats : MonoBehaviour, IEntityStats
     {
-        private EnemyStatsConfig _enemyStatsConfig;
+        [SerializeField] private SpriteRenderer _spriteRenderer;
         
         private int _currentHealth;
+        
+        private EnemyStatsConfig _enemyStatsConfig;
+        
         public static event Action<int> EnemyDiedAction;
         
         public float SpeedModifier { get; private set; }
@@ -17,8 +20,12 @@ namespace Entities
         
         public EntityType EntityType => EntityType.Enemy;
 
-        public void Init(EnemyStatsConfig enemyStatsConfig) => _enemyStatsConfig = enemyStatsConfig;
-        
+        public void Init(EnemyStatsConfig enemyStatsConfig, Transform playerTransform)
+        {
+            _enemyStatsConfig = enemyStatsConfig;
+            _spriteRenderer.color = enemyStatsConfig.Color;
+        }
+
         public bool TryApplyDamage(int amount)
         {
             _currentHealth -= amount;

@@ -1,18 +1,20 @@
 ﻿using UnityEngine;
+using Utilities;
 
 namespace Player
 {
-    public class CameraFollow : MonoBehaviour
+    public class CameraFollow : Singleton<CameraFollow>
     {
-        [SerializeField] private Transform _target;
         [SerializeField] private BoxCollider2D _bounds;
         [SerializeField] private float _smoothTime;
         
-        private Vector2 _minBounds;
-        private Vector2 _maxBounds;
-        
         private float _cameraHalfWidth;
         private float _cameraHalfHeight;
+        
+        private Transform _target;
+        
+        private Vector2 _minBounds;
+        private Vector2 _maxBounds;
         
         private Vector3 _velocity;
 
@@ -26,6 +28,8 @@ namespace Player
             _minBounds = bounds.min;
             _maxBounds = bounds.max;
         }
+
+        public void InitTarget(Transform target) => _target = target;
         
         private void LateUpdate()
         {
