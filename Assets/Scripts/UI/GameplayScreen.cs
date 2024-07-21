@@ -3,6 +3,8 @@ using Managers.Queue;
 using Player;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace UI
 {
@@ -10,6 +12,7 @@ namespace UI
     {
         [SerializeField] private GameObject _child;
         [SerializeField] private TextMeshProUGUI _scoreTextMesh;
+        [SerializeField] private Button _mainMenuButton;
 
         private void Start()
         {
@@ -18,8 +21,14 @@ namespace UI
             QueueManager.RestartAction += OnRestart;
             PlayerStats.PlayerDiedAction += OnPlayerDied;
             ScoreManager.CurrentScoreProperty.ValueChangedEvent += OnScoreChanged;
+            _mainMenuButton.onClick.AddListener(LoadMainMenu);
 
             OnScoreChanged(0, 0);
+        }
+
+        private void LoadMainMenu()
+        {
+            SceneManager.LoadScene(0);
         }
 
         private void OnRestart()
@@ -42,6 +51,7 @@ namespace UI
             QueueManager.RestartAction -= OnRestart;
             PlayerStats.PlayerDiedAction -= OnPlayerDied;
             ScoreManager.CurrentScoreProperty.ValueChangedEvent -= OnScoreChanged;
+            _mainMenuButton.onClick.RemoveAllListeners();
         }
     }
 }

@@ -16,6 +16,11 @@ namespace Player.Controls
         public event Action AttackPerfomedEvent;
         public event Action AttackCancelledEvent;
 
+        public void Init()
+        {
+            _camera = Camera.main;
+        }
+
         public void Disable()
         {
             _gameControls.Gameplay.Disable();

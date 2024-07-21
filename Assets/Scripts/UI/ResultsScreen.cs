@@ -3,6 +3,7 @@ using Managers.Queue;
 using Player;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace UI
@@ -32,7 +33,7 @@ namespace UI
 
         private void LoadMainMenu()
         {
-            
+            SceneManager.LoadScene(0);
         }
 
         private void Retry()
