@@ -28,14 +28,12 @@ namespace Entities
             _spriteRenderer.color = enemyStatsConfig.Color;
         }
 
-        public bool TryApplyDamage(int amount)
+        public void TryApplyDamage(int amount)
         {
             _currentHealth -= amount;
             
             if (_currentHealth <= 0)
                 Kill();
-
-            return true;
         }
 
         public void Kill()

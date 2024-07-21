@@ -6,7 +6,7 @@ namespace Entities
     {
         public EntityType EntityType { get; }
 
-        public bool TryApplyDamage(int amount);
+        public void TryApplyDamage(int amount);
         public void Kill();
     }
 }
