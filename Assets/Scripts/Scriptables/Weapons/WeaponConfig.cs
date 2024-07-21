@@ -7,6 +7,8 @@ namespace Scriptables.Weapons
     {
         [SerializeField] private string _name;
         [SerializeField, TextArea] private string _description;
+        [SerializeField] private Sprite _sprite;
+        [SerializeField] private Color _color;
         [Space] 
         [SerializeField] private EntityType _owner;
         [SerializeField] private int _damage;
@@ -17,6 +19,8 @@ namespace Scriptables.Weapons
         public float AttackDelay => 1 / _attackSpeed;
         public float ProjectileSpeed => _projectileSpeed;
         public EntityType Owner => _owner;
+        public Sprite Sprite => _sprite;
+        public Color Color => _color;
 
         public abstract void Attack(Vector2 from, Vector2 to);
     }

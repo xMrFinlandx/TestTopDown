@@ -7,7 +7,7 @@ using Scriptables.Spawn;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Managers
+namespace Managers.Spawners
 {
     public class EnemySpawner : QueueElement
     {

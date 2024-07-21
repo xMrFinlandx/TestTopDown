@@ -11,10 +11,17 @@ namespace Player
         [SerializeField] private WeaponConfig _weaponConfig;
         [SerializeField] private PlayerController _playerController;
         [SerializeField] private Transform _firePoint;
-
+        
         private WeaponHolder _weaponHolder;
         
         private bool _isAttackPressed;
+        
+        public WeaponConfig CurrentWeapon => _weaponHolder.WeaponConfig;
+        
+        public void Set(WeaponConfig item)
+        {
+            _weaponHolder = new WeaponHolder(item);
+        }
         
         private void Start()
         {

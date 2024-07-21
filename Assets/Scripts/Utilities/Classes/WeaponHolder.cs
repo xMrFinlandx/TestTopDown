@@ -5,15 +5,16 @@ namespace Utilities.Classes
 {
     public class WeaponHolder
     {
-        private readonly WeaponConfig _handledWeapon;
         private readonly float _attackDelay;
         private float _attackDelayCounter;
+
+        public WeaponConfig WeaponConfig { get; }
 
         public bool CanAttack => _attackDelayCounter <= 0;
         
         public WeaponHolder(WeaponConfig weaponConfig)
         {
-            _handledWeapon = weaponConfig;
+            WeaponConfig = weaponConfig;
             _attackDelay = weaponConfig.AttackDelay;
             _attackDelayCounter = _attackDelay;
         }
@@ -26,7 +27,7 @@ namespace Utilities.Classes
         public void Attack(Vector2 from, Vector2 to)
         {
             _attackDelayCounter = _attackDelay;
-            _handledWeapon.Attack(from, to);
+            WeaponConfig.Attack(from, to);
         }
     }
 }

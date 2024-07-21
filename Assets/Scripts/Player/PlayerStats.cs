@@ -9,6 +9,7 @@ namespace Player
     public class PlayerStats : MonoBehaviour, IEntityStats
     {
         [SerializeField] private PlayerStatsConfig _playerStatsConfig;
+        [SerializeField] private WeaponSelector _weaponSelector;
         
         private int _currentHealth;
         
@@ -18,9 +19,9 @@ namespace Player
         public float Speed => _playerStatsConfig.Speed * SpeedModifier;
         public float RotationSpeed => _playerStatsConfig.RotationSpeed;
         
+        public WeaponSelector WeaponSelector => _weaponSelector;
         public EntityType EntityType => EntityType.Player;
-
-
+        
         public bool TryApplyDamage(int amount)
         {
             _currentHealth -= amount;

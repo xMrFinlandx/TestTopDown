@@ -2,17 +2,22 @@
 using Player;
 using UnityEngine;
 
-namespace Managers
+namespace Managers.Spawners
 {
     public class PlayerSpawner : QueueElement
     {
         [SerializeField] private PlayerStats _playerPrefab;
 
         public static Transform PlayerTransform { get; private set; }
+        public static PlayerStats PlayerStats { get; private set; }
 
         public override void Enable()
         {
-            PlayerTransform = Instantiate(_playerPrefab, Vector2.zero, Quaternion.identity).transform;
+            PlayerStats = Instantiate(_playerPrefab, Vector2.zero, Quaternion.identity);
+            
+            print(PlayerStats == null);
+            
+            PlayerTransform = PlayerStats.transform;
             CameraFollow.Instance.InitTarget(PlayerTransform);
         }
     }
