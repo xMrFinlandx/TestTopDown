@@ -16,8 +16,13 @@ namespace Scriptables.Weapons
         [SerializeField] private float _projectileSpeed;
         
         public int Damage => _damage;
+        
         public float AttackDelay => 1 / _attackSpeed;
         public float ProjectileSpeed => _projectileSpeed;
+
+        public string Name => _name;
+        public string Description => _description;
+        
         public EntityType Owner => _owner;
         public Sprite Sprite => _sprite;
         public Color Color => _color;

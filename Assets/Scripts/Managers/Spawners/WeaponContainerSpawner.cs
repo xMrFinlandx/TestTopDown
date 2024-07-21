@@ -7,6 +7,13 @@ namespace Managers.Spawners
 {
     public class WeaponContainerSpawner : BaseContainerSpawner<WeaponContainer, WeaponConfig>
     {
+        public override void Enable()
+        {
+            base.Enable();
+            
+            PlayerSpawner.PlayerStats.WeaponSelector.Set(Items.GetRandom());
+        }
+
         public override WeaponConfig GetItem()
         {
             var weapon = PlayerSpawner.PlayerStats.WeaponSelector.CurrentWeapon;
