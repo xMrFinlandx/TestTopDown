@@ -1,31 +1,46 @@
-﻿using Gameplay.Zones;
+﻿using System.Collections.Generic;
+using Gameplay.Zones;
+using Managers.Queue;
 using Scriptables.Zones;
 using UnityEngine;
 using Utilities;
 
 namespace Managers
 {
-    public class DangerZoneManager : MonoBehaviour
+    public class DangerZoneManager : QueueElement
     {
         [SerializeField] private DangerZone _prefab;
         [SerializeField] private LayerMask _obstacleLayerMask;
         [SerializeField] private DangerZonesConfig _dangerZonesConfig;
         [SerializeField] private BoxCollider2D _bounds;
         [SerializeField] private float _minNeighbourDistance = 3;
+
+        private List<DangerZone> _dangerZones = new();
         
         private Vector2 _minBounds;
         private Vector2 _maxBounds;
         
-        private void Start()
+        public override void Enable()
         {
-            _minBounds = _bounds.bounds.min;
-            _maxBounds = _bounds.bounds.max;
-            
+            ClearZones();
             InstantiateZones();
+        }
+
+        private void ClearZones()
+        {
+            foreach (var dangerZone in _dangerZones)
+            {
+                Destroy(dangerZone.gameObject);
+            }
+
+            _dangerZones.Clear();
         }
 
         private void InstantiateZones()
         {
+            _minBounds = _bounds.bounds.min;
+            _maxBounds = _bounds.bounds.max;
+            
             var uniqueZones = _dangerZonesConfig.DangerZoneData.Count;
 
             for (int i = 0; i < uniqueZones; i++)
@@ -41,6 +56,7 @@ namespace Managers
                     
                     var dangerZone = Instantiate(_prefab, position, Quaternion.identity, transform);
                     dangerZone.Init(zoneData.ZoneConfig);
+                    _dangerZones.Add(dangerZone);
                 }
             }
         }

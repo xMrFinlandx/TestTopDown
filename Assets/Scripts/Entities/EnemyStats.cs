@@ -8,13 +8,15 @@ namespace Entities
     public class EnemyStats : MonoBehaviour, IEntityStats
     {
         [SerializeField] private SpriteRenderer _spriteRenderer;
-        
+
+        private bool _isAlive = true;
         private int _currentHealth;
         
         private EnemyStatsConfig _enemyStatsConfig;
         
-        public static event Action<int> EnemyDiedAction;
-        
+        public static event Action<EnemyStats> EnemyDiedAction;
+
+        public int Points => _enemyStatsConfig.Points;
         public float SpeedModifier { get; private set; }
         public float Speed => _enemyStatsConfig.Speed * SpeedModifier;
         
@@ -38,7 +40,11 @@ namespace Entities
 
         public void Kill()
         {
-            EnemyDiedAction?.Invoke(_enemyStatsConfig.Points);
+            if (!_isAlive) 
+                return;
+
+            _isAlive = false;
+            EnemyDiedAction?.Invoke(this);
             Destroy(gameObject);
         }
         

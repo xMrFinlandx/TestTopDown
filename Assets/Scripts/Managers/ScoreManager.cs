@@ -1,35 +1,42 @@
-﻿using Entities;
+﻿using System;
+using Entities;
+using Managers.Queue;
 using Player;
 using Systems.Save;
 using Systems.Save.Data;
-using UnityEngine;
 using Utilities.Classes;
 
 namespace Managers
 {
-    public class ScoreManager : MonoBehaviour, IDataPersistence
+    public class ScoreManager : QueueElement, IDataPersistence
     {
-        public readonly ReactiveProperty<int> CurrentScoreProperty = new();
+        public static readonly ReactiveProperty<int> CurrentScoreProperty = new();
+
+        public static event Action<int, int> ScoreSavedAction; 
+        
+        public override void Enable()
+        {
+            CurrentScoreProperty.Value = 0;
+        }
         
         public void LoadData(GameData data)
         {
-            Debug.Log($"Loaded {data.BestScore}");
         }
 
         public void SaveData(GameData data)
         {
+            ScoreSavedAction?.Invoke(data.BestScore, CurrentScoreProperty.Value);
+            
             if (CurrentScoreProperty.Value > data.BestScore)
                 data.BestScore = CurrentScoreProperty.Value;
-            
-            Debug.Log($"Saved {data.BestScore}, current {CurrentScoreProperty.Value}");
         }
         
         private void Start()
         {
-            EnemyStats.EnemyDiedAction += OnEnemyDied;
-            PlayerStats.PlayerDiedAction += OnPlayerDied;
-            
             DataPersistenceManager.Load();
+            
+            PlayerStats.PlayerDiedAction += OnPlayerDied;
+            EnemyStats.EnemyDiedAction += OnEnemyDied;
         }
 
         private void OnPlayerDied()
@@ -37,15 +44,15 @@ namespace Managers
             DataPersistenceManager.Save();
         }
 
-        private void OnEnemyDied(int points)
+        private void OnEnemyDied(EnemyStats enemyStats)
         {
-            CurrentScoreProperty.Value += points;
+            CurrentScoreProperty.Value += enemyStats.Points;
         }
 
         private void OnDisable()
         {
-            EnemyStats.EnemyDiedAction -= OnEnemyDied;
             PlayerStats.PlayerDiedAction -= OnPlayerDied;
+            EnemyStats.EnemyDiedAction -= OnEnemyDied;
         }
     }
 }

@@ -1,6 +1,7 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
+using System.Collections.Generic;
 using Entities;
+using Managers.Queue;
 using Player;
 using Scriptables.Spawn;
 using UnityEngine;
@@ -8,7 +9,7 @@ using Random = UnityEngine.Random;
 
 namespace Managers
 {
-    public class EnemySpawner : MonoBehaviour
+    public class EnemySpawner : QueueElement
     {
         [SerializeField] private EnemyStats _prefab;
         [Header("Spawn Settings")]
@@ -20,29 +21,46 @@ namespace Managers
         [Header("Enemy stats")]
         [SerializeField] private EnemySpawnConfig _spawnConfig;
 
+        private List<EnemyStats> _enemies = new();
+        
         private float _currentSpawnInterval;
         private Camera _camera;
-
-        private void Start()
+        
+        public override void Enable()
         {
-            _camera = Camera.main;
-            _currentSpawnInterval = _initialSpawnInterval;
+            KillEnemies();
 
-            PlayerStats.PlayerDiedAction += OnPlayerDied;
+            _currentSpawnInterval = _initialSpawnInterval;
             
             StartCoroutine(SpawnEnemies());
             StartCoroutine(DecreaseSpawnInterval());
         }
 
+        private void Start()
+        {
+            _camera = Camera.main;
+            EnemyStats.EnemyDiedAction += OnEnemyDied;
+            PlayerStats.PlayerDiedAction += OnPlayerDied;
+        }
+
         private void OnPlayerDied()
         {
             StopAllCoroutines();
-            _currentSpawnInterval = _initialSpawnInterval;
         }
 
-        private void OnDisable()
+        private void OnEnemyDied(EnemyStats enemy)
         {
-            PlayerStats.PlayerDiedAction -= OnPlayerDied;
+            _enemies.Remove(enemy);
+        }
+
+        private void KillEnemies()
+        {
+            foreach (var enemy in _enemies)
+            {
+                Destroy(enemy.gameObject);
+            }
+
+            _enemies.Clear();
         }
 
         private IEnumerator SpawnEnemies()
@@ -68,6 +86,7 @@ namespace Managers
             var spawnPosition = GetRandomSpawnPosition();
             var enemyStats = Instantiate(_prefab, spawnPosition, Quaternion.identity);
             enemyStats.Init(_spawnConfig.Get(), PlayerSpawner.PlayerTransform);
+            _enemies.Add(enemyStats);
         }
         
         private Vector2 GetRandomSpawnPosition()
@@ -93,6 +112,12 @@ namespace Managers
             var viewportPoint = _camera.WorldToViewportPoint(position);
             
             return viewportPoint.x > 0 && viewportPoint.x < 1 && viewportPoint.y > 0 && viewportPoint.y < 1;
+        }
+
+        private void OnDestroy()
+        {
+            EnemyStats.EnemyDiedAction -= OnEnemyDied;
+            PlayerStats.PlayerDiedAction -= OnPlayerDied;
         }
     }
 }

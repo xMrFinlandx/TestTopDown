@@ -23,12 +23,12 @@ namespace Player
 
             if (Mathf.Abs(angleDifference) <= maxRotationStep)
             {
-                _rigidbody.rotation = targetAngle;
+                _rigidbody.SetRotation(targetAngle);
                 return true;
             }
 
             var rotationStep = Mathf.Sign(angleDifference) * maxRotationStep;
-            _rigidbody.rotation = currentAngle + rotationStep;
+            _rigidbody.SetRotation(currentAngle + rotationStep); 
             return false;
         }
         
