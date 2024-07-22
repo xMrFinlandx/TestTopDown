@@ -8,7 +8,6 @@ namespace Gameplay.Projectiles
     [RequireComponent(typeof(CircleCollider2D), typeof(Rigidbody2D), typeof(TrailRenderer))]
     public abstract class BaseProjectile : MonoBehaviour
     {
-        [SerializeField] private CircleCollider2D _collider;
         [SerializeField] private Rigidbody2D _rigidbody;
         [SerializeField] private TrailRenderer _trailRenderer;
         
@@ -20,10 +19,6 @@ namespace Gameplay.Projectiles
         
         public int Damage { get; protected set; }
         public float Speed { get; protected set; }
-        
-        protected CircleCollider2D Collider => _collider;
-        protected Rigidbody2D Rigidbody => _rigidbody;
-        protected TrailRenderer TrailRenderer => _trailRenderer;
 
         public EntityType Owner { get; private set; } = EntityType.Everything;
 
@@ -75,13 +70,16 @@ namespace Gameplay.Projectiles
             if (_canIgnoreCollisions)
                 return;
 
-            if (other.TryGetComponent<IDamageable>(out var damageable) && damageable.EntityType != Owner)
+            if (other.TryGetComponent<IDamageable>(out var damageable))
             {
-                damageable.TryApplyDamage(Damage);
+                if (damageable.EntityType == Owner)
+                    return;
 
-                if (!_isReleased)
-                    ReleaseProjectile();
+                damageable.TryApplyDamage(Damage);
             }
+
+            if (!_isReleased)
+                ReleaseProjectile();
         }
     }
 }

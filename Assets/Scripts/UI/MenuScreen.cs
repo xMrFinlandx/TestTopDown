@@ -1,5 +1,4 @@
-﻿using System;
-using Systems.Save;
+﻿using Systems.Save;
 using Systems.Save.Data;
 using TMPro;
 using UnityEngine;

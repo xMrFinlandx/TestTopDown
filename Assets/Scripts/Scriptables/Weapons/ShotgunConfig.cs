@@ -16,7 +16,10 @@ namespace Scriptables.Weapons
         {
             for (int i = 0; i < _projectileCount; i++)
             {
-                ProjectilePoolManager.Instance.GetDistanceLimitedBullet(from, to, ProjectileSpeed, Damage).AddSpread(_spreadAngle).SetMaxDistance(_maxDistance);
+                ProjectilePoolManager.Instance.GetDistanceLimitedBullet(from, to, ProjectileSpeed, Damage)
+                    .AddSpread(_spreadAngle)
+                    .SetMaxDistance(_maxDistance)
+                    .SetOwner(Owner);
             }
         }
     }

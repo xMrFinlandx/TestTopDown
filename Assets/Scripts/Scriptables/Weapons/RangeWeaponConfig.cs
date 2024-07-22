@@ -8,7 +8,7 @@ namespace Scriptables.Weapons
     {
         public override void Attack(Vector2 from, Vector2 to)
         {
-            ProjectilePoolManager.Instance.GetBullet(from, to, ProjectileSpeed, Damage);
+            ProjectilePoolManager.Instance.GetBullet(from, to, ProjectileSpeed, Damage).SetOwner(Owner);
         }
     }
 }

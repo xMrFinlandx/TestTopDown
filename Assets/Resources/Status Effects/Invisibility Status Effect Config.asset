@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Invisibility Status Effect Config
   m_EditorClassIdentifier: 
   _sprite: {fileID: 3625043607559282579, guid: 0d267bc78a0864eb48358689b29ed20a, type: 3}
-  _color: {r: 0.5768442, g: 0, b: 1, a: 1}
+  _color: {r: 0, g: 1, b: 0.6348052, a: 1}
   _lifeTime: 10

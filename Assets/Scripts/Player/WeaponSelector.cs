@@ -13,6 +13,7 @@ namespace Player
         [SerializeField] private Transform _firePoint;
         
         private bool _isAttackPressed;
+        private bool _isInitialized;
         
         private WeaponHolder _weaponHolder;
 
@@ -24,6 +25,7 @@ namespace Player
         {
             WeaponChangedAction?.Invoke(item);
             _weaponHolder = new WeaponHolder(item);
+            _isInitialized = true;
         }
         
         private void Start()
@@ -34,6 +36,9 @@ namespace Player
 
         private void Update()
         {
+            if (!_isInitialized)
+                return;
+            
             _weaponHolder.Update(Time.deltaTime);
 
             if (_isAttackPressed && _weaponHolder.CanAttack && _playerController.RotateTowards(_inputReader.MousePosition, Time.deltaTime))
@@ -52,7 +57,7 @@ namespace Player
             _isAttackPressed = false;
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             _inputReader.AttackPerfomedEvent -= OnAttackPerfomed;
             _inputReader.AttackCancelledEvent -= OnAttackCancelled;

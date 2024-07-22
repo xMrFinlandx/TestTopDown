@@ -13,9 +13,9 @@ TagManager:
   - UI
   - Enemy
   - Player
-  - Area
-  - Collectables
-  - 
+  - Zone
+  - Collectable
+  - Projectile
   - 
   - 
   - 

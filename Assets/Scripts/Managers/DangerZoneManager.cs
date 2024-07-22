@@ -15,7 +15,7 @@ namespace Managers
         [SerializeField] private BoxCollider2D _bounds;
         [SerializeField] private float _minNeighbourDistance = 3;
 
-        private List<DangerZone> _dangerZones = new();
+        private readonly List<DangerZone> _dangerZones = new();
         
         private Vector2 _minBounds;
         private Vector2 _maxBounds;

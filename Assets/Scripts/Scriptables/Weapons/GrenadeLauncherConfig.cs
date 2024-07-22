@@ -17,6 +17,7 @@ namespace Scriptables.Weapons
             ProjectilePoolManager.Instance.GetDistanceLimitedBullet(from, to, ProjectileSpeed, Damage)
                 .SetMaxDistance(Vector2.Distance(from, to))
                 .IgnoreCollisions()
+                .SetOwner(Owner)
                 .SetOnDestroyAction(pos =>
                 {
                     OverlapHelper.GetComponentsInCircle<IDamageable>(pos, _explosionRadius, _layerMask)

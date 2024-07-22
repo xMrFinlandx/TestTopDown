@@ -79,7 +79,9 @@ namespace Player
         private void OnCollisionEnter2D(Collision2D other)
         {
             if (other.collider.TryGetComponent<IDamageable>(out var damageable) && damageable.EntityType == EntityType.Enemy)
+            {
                 TryApplyDamage(_currentHealth);
+            }
         }
 
         private void Update()

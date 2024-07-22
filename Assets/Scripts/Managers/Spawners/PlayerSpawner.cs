@@ -15,8 +15,6 @@ namespace Managers.Spawners
         {
             PlayerStats = Instantiate(_playerPrefab, Vector2.zero, Quaternion.identity);
             
-            print(PlayerStats == null);
-            
             PlayerTransform = PlayerStats.transform;
             CameraFollow.Instance.InitTarget(PlayerTransform);
         }

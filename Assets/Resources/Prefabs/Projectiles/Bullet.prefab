@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1017012172308189643}
   - component: {fileID: 8212610287126883565}
   - component: {fileID: 8728799746098847030}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 9092414302256665552}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.23, y: 1.54, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0.8278384, b: 0.18396229, a: 1}
+  m_Color: {r: 0.7830189, g: 0.69316775, b: 0.35826808, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -123,7 +123,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Radius: 1
 --- !u!50 &1017012172308189643
 Rigidbody2D:
   serializedVersion: 4
@@ -148,7 +148,7 @@ Rigidbody2D:
     serializedVersion: 2
     m_Bits: 0
   m_Interpolate: 1
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!114 &8212610287126883565
@@ -163,7 +163,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37441b22cf174c41ab03c4c932cf5f75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _collider: {fileID: 494052457930921790}
   _rigidbody: {fileID: 1017012172308189643}
   _trailRenderer: {fileID: 8728799746098847030}
   Direction: {x: 0, y: 0}
